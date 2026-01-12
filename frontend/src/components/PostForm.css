@@ -52,3 +52,78 @@
   background-color: #f3f4f6;
   cursor: not-allowed;
 }
+
+/* 반응형 */
+/* 태블릿 */
+@media (max-width: 1024px) {
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    font-size: 13px;
+    margin-bottom: 7px;
+  }
+
+  .form-input,
+  .form-textarea {
+    font-size: 15px;
+    padding: 11px 14px;
+  }
+
+  .form-textarea {
+    min-height: 180px;
+  }
+}
+
+/* 모바일 */
+@media (max-width: 768px) {
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-label {
+    font-size: 12px;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .form-input,
+  .form-textarea {
+    font-size: 16px;
+    padding: 10px 12px;
+    border-radius: 6px;
+  }
+
+  .form-textarea {
+    min-height: 150px;
+    line-height: 1.5;
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+  }
+}
+
+/* 소형 모바일 */
+@media (max-width: 480px) {
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-label {
+    font-size: 11px;
+  }
+
+  .form-input {
+    font-size: 14px;
+    padding: 9px 11px;
+  }
+
+  .form-textarea {
+    font-size: 14px;
+    padding: 9px 11px;
+    min-height: 120px;
+  }
+}
