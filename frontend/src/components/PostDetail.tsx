@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Post } from '../types/post';
 import { postApi } from '../services/api';
+import './PostDetail.css';
 
 export default function PostDetail() {
   const { id } = useParams<{ id: string }>();
@@ -42,35 +43,32 @@ export default function PostDetail() {
     }
   };
 
-  if (loading) return <div>로딩 중...</div>;
-  if (error) return <div style={{ color: 'red' }}>{error}</div>;
-  if (!post) return <div>게시글을 찾을 수 없습니다.</div>;
+  if (loading) return <div className="container"><div className="loading">로딩 중...</div></div>;
+  if (error) return <div className="container"><div className="error">{error}</div></div>;
+  if (!post) return <div className="container"><div className="error">게시글을 찾을 수 없습니다.</div></div>;
 
   return (
-    <div>
-      <h1>{post.title}</h1>
-      <div style={{ color: '#666', marginBottom: '20px' }}>
-        작성일: {new Date(post.createdAt).toLocaleString('ko-KR')}
+    <div className="container">
+      <div className="post-header">
+        <h1 className="post-title">{post.title}</h1>
+        <div className="post-meta">
+          <span>🕒</span>
+          <span>{new Date(post.createdAt).toLocaleString('ko-KR')}</span>
+        </div>
       </div>
-      <div
-        style={{
-          border: '1px solid #ddd',
-          padding: '20px',
-          borderRadius: '4px',
-          minHeight: '200px',
-          whiteSpace: 'pre-wrap',
-        }}
-      >
+
+      <div className="post-content">
         {post.content}
       </div>
-      <div style={{ marginTop: '20px' }}>
-        <Link to="/">
-          <button>목록</button>
+
+      <div className="button-group">
+        <Link to="/" className="btn btn-secondary">
+          ← 목록으로
         </Link>
-        <Link to={`/edit/${post.id}`}>
-          <button style={{ marginLeft: '10px' }}>수정</button>
+        <Link to={`/edit/${post.id}`} className="btn btn-success">
+          수정
         </Link>
-        <button style={{ marginLeft: '10px' }} onClick={handleDelete}>
+        <button onClick={handleDelete} className="btn btn-danger">
           삭제
         </button>
       </div>

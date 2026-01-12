@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { postApi } from '../services/api';
+import './PostForm.css';
 
 export default function PostForm() {
   const { id } = useParams<{ id: string }>();
@@ -54,11 +55,14 @@ export default function PostForm() {
   };
 
   return (
-    <div>
-      <h1>{isEditMode ? '게시글 수정' : '새 글 작성'}</h1>
+    <div className="container">
+      <div className="header">
+        <h1>{isEditMode ? '게시글 수정' : '새 글 작성'}</h1>
+      </div>
+
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '15px' }}>
-          <label htmlFor="title" style={{ display: 'block', marginBottom: '5px' }}>
+        <div className="form-group">
+          <label htmlFor="title" className="form-label">
             제목
           </label>
           <input
@@ -66,31 +70,34 @@ export default function PostForm() {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            style={{ width: '100%', padding: '8px', fontSize: '16px' }}
+            className="form-input"
+            placeholder="게시글 제목을 입력하세요"
             disabled={loading}
           />
         </div>
-        <div style={{ marginBottom: '15px' }}>
-          <label htmlFor="content" style={{ display: 'block', marginBottom: '5px' }}>
+
+        <div className="form-group">
+          <label htmlFor="content" className="form-label">
             내용
           </label>
           <textarea
             id="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            rows={10}
-            style={{ width: '100%', padding: '8px', fontSize: '16px' }}
+            className="form-textarea"
+            placeholder="게시글 내용을 입력하세요"
             disabled={loading}
           />
         </div>
-        <div>
-          <button type="submit" disabled={loading}>
-            {loading ? '처리중...' : isEditMode ? '수정' : '작성'}
+
+        <div className="button-group">
+          <button type="submit" disabled={loading} className="btn btn-primary">
+            {loading ? '처리중...' : isEditMode ? '수정 완료' : '작성 완료'}
           </button>
           <button
             type="button"
             onClick={() => navigate(-1)}
-            style={{ marginLeft: '10px' }}
+            className="btn btn-secondary"
             disabled={loading}
           >
             취소

@@ -1,0 +1,44 @@
+/* 포스트 헤더 */
+.post-header {
+  margin-bottom: 24px;
+}
+
+.post-title {
+  font-size: 36px;
+  color: #1f2937;
+  margin-bottom: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.post-meta {
+  color: #6b7280;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 포스트 내용 */
+.post-content {
+  border: 2px solid #e5e7eb;
+  padding: 32px;
+  border-radius: 12px;
+  min-height: 300px;
+  white-space: pre-wrap;
+  line-height: 1.8;
+  color: #374151;
+  font-size: 16px;
+  background-color: #f9fafb;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .post-title {
+    font-size: 28px;
+  }
+
+  .post-content {
+    padding: 20px;
+  }
+}

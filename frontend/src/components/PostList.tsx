@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Post } from '../types/post';
 import { postApi } from '../services/api';
+import './PostList.css';
 
 export default function PostList() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -38,50 +39,67 @@ export default function PostList() {
     }
   };
 
-  if (loading) return <div>로딩 중...</div>;
-  if (error) return <div style={{ color: 'red' }}>{error}</div>;
+  if (loading) return <div className="container"><div className="loading">로딩 중...</div></div>;
+  if (error) return <div className="container"><div className="error">{error}</div></div>;
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+    <div className="container">
+      <div className="header">
         <h1>게시판</h1>
-        <Link to="/create">
-          <button>새 글 작성</button>
+        <Link to="/create" className="btn btn-primary">
+          새 글 작성
         </Link>
       </div>
 
       {posts.length === 0 ? (
-        <p>게시글이 없습니다.</p>
+        <div className="empty-state">
+          <div className="empty-state-icon">📝</div>
+          <div className="empty-state-text">게시글이 없습니다.</div>
+          <Link to="/create" className="btn btn-primary">
+            첫 게시글 작성하기
+          </Link>
+        </div>
       ) : (
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ borderBottom: '2px solid #ddd' }}>
-              <th style={{ padding: '10px', textAlign: 'left' }}>ID</th>
-              <th style={{ padding: '10px', textAlign: 'left' }}>제목</th>
-              <th style={{ padding: '10px', textAlign: 'left' }}>작성일</th>
-              <th style={{ padding: '10px', textAlign: 'center' }}>작업</th>
-            </tr>
-          </thead>
-          <tbody>
-            {posts.map((post) => (
-              <tr key={post.id} style={{ borderBottom: '1px solid #eee' }}>
-                <td style={{ padding: '10px' }}>{post.id}</td>
-                <td style={{ padding: '10px' }}>
-                  <Link to={`/posts/${post.id}`}>{post.title}</Link>
-                </td>
-                <td style={{ padding: '10px' }}>
-                  {new Date(post.createdAt).toLocaleString('ko-KR')}
-                </td>
-                <td style={{ padding: '10px', textAlign: 'center' }}>
-                  <Link to={`/edit/${post.id}`}>
-                    <button style={{ marginRight: '5px' }}>수정</button>
-                  </Link>
-                  <button onClick={() => handleDelete(post.id)}>삭제</button>
-                </td>
+        <div className="table-container">
+          <table className="table">
+            <thead>
+              <tr>
+                <th style={{ width: '80px' }}>ID</th>
+                <th>제목</th>
+                <th style={{ width: '200px' }}>작성일</th>
+                <th style={{ width: '180px', textAlign: 'center' }}>작업</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {posts.map((post) => (
+                <tr key={post.id}>
+                  <td>
+                    <span className="id-badge">{post.id}</span>
+                  </td>
+                  <td>
+                    <Link to={`/posts/${post.id}`}>{post.title}</Link>
+                  </td>
+                  <td className="date-text">
+                    {new Date(post.createdAt).toLocaleString('ko-KR')}
+                  </td>
+                  <td>
+                    <div className="action-buttons">
+                      <Link to={`/edit/${post.id}`} className="btn btn-secondary btn-small">
+                        수정
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(post.id)}
+                        className="btn btn-danger btn-small"
+                      >
+                        삭제
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
